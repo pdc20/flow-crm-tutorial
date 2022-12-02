@@ -1,13 +1,13 @@
-# Spring Boot and Vaadin course source code
+# Spring Boot and Vaadin course articleSource code
 
-This repository contains the source code for the [Building Modern Web Applications With Spring Boot and Vaadin](https://vaadin.com/docs/latest/flow/tutorials/in-depth-course).
+This repository contains the articleSource code for the [Building Modern Web Applications With Spring Boot and Vaadin](https://vaadin.com/docs/latest/flow/tutorials/in-depth-course).
 
 *Live demo:* https://crm.demo.vaadin.com
 
 ## Branches
 
-- The main branch contains the source code for the latest Vaadin release
-- The `v14` branch contains the source code for Vaadin 14
+- The main branch contains the articleSource code for the latest Vaadin release
+- The `v14` branch contains the articleSource code for Vaadin 14
 
 
 ## Text tutorial

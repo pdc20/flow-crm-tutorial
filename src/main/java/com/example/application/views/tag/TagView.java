@@ -1,8 +1,10 @@
-package com.example.application.views.list;
+package com.example.application.views.tag;
 
-import com.example.application.data.entity.Contact;
+import com.example.application.data.entity.Tag;
+import com.example.application.data.entity.Tag;
 import com.example.application.data.service.CrmService;
 import com.example.application.views.MainLayout;
+import com.example.application.views.tag.TagForm;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
@@ -17,29 +19,29 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.security.PermitAll;
 
-
 @Component
 @Scope("prototype")
-@Route(value="", layout = MainLayout.class)
-@PageTitle("Contacts | Vaadin CRM")
+@Route(value="tag", layout = MainLayout.class)
+@PageTitle("Tags | Vaadin CRM")
 @PermitAll
-public class ListView extends VerticalLayout {
-    Grid<Contact> grid = new Grid<>(Contact.class);
+public class TagView extends VerticalLayout {
+    Grid<Tag> grid = new Grid<>(Tag.class);
     TextField filterText = new TextField();
-    ContactForm form;
+    TagForm form;
     CrmService service;
 
-    public ListView(CrmService service) {
+    public TagView(CrmService service) {
+
         this.service = service;
         addClassName("list-view");
         setSizeFull();
         configureGrid();
 
-        form = new ContactForm(service.findAllCompanies(), service.findAllStatuses());
+        form = new TagForm();
         form.setWidth("25em");
-        form.addListener(ContactForm.SaveEvent.class, this::saveContact);
-        form.addListener(ContactForm.DeleteEvent.class, this::deleteContact);
-        form.addListener(ContactForm.CloseEvent.class, e -> closeEditor());
+        form.addListener(TagForm.SaveEvent.class, this::saveTag);
+        form.addListener(TagForm.DeleteEvent.class, this::deleteTag);
+        form.addListener(TagForm.CloseEvent.class, e -> closeEditor());
 
         FlexLayout content = new FlexLayout(grid, form);
         content.setFlexGrow(2, grid);
@@ -52,15 +54,12 @@ public class ListView extends VerticalLayout {
         updateList();
         closeEditor();
         grid.asSingleSelect().addValueChangeListener(event ->
-            editContact(event.getValue()));
+                editTag(event.getValue()));
     }
 
     private void configureGrid() {
-        grid.addClassNames("contact-grid");
+        grid.addClassNames("data-grid");
         grid.setSizeFull();
-        grid.setColumns("firstName", "lastName", "email");
-        grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Status");
-        grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
@@ -70,49 +69,49 @@ public class ListView extends VerticalLayout {
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
 
-        Button addContactButton = new Button("Add contact");
-        addContactButton.addClickListener(click -> addContact());
+        Button addContactButton = new Button("Add record");
+        addContactButton.addClickListener(click -> addTag());
 
         HorizontalLayout toolbar = new HorizontalLayout(filterText, addContactButton);
         toolbar.addClassName("toolbar");
         return toolbar;
     }
 
-    private void saveContact(ContactForm.SaveEvent event) {
-        service.saveContact(event.getContact());
+    private void saveTag(TagForm.SaveEvent event) {
+        service.saveTag(event.getTag());
         updateList();
         closeEditor();
     }
 
-    private void deleteContact(ContactForm.DeleteEvent event) {
-        service.deleteContact(event.getContact());
+    private void deleteTag(TagForm.DeleteEvent event) {
+        service.deleteTag(event.getTag());
         updateList();
         closeEditor();
     }
 
-    public void editContact(Contact contact) {
-        if (contact == null) {
+    public void editTag(Tag tag) {
+        if (tag == null) {
             closeEditor();
         } else {
-            form.setContact(contact);
+            form.setTag(tag);
             form.setVisible(true);
             addClassName("editing");
         }
     }
 
-    void addContact() {
+    void addTag() {
         grid.asSingleSelect().clear();
-        editContact(new Contact());
+        editTag(new Tag());
     }
 
     private void closeEditor() {
-        form.setContact(null);
+        form.setTag(null);
         form.setVisible(false);
         removeClassName("editing");
     }
 
     private void updateList() {
-        grid.setItems(service.findAllContacts(filterText.getValue()));
+        grid.setItems(service.findAllTags(filterText.getValue()));
     }
 
 

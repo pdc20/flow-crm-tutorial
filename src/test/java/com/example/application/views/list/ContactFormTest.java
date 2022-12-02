@@ -46,7 +46,7 @@ public class ContactFormTest {
         marcUsher.setCompany(company2);
     }
 
-    @Test
+    /*@Test
     public void formFieldsPopulated() {
         ContactForm form = new ContactForm(companies, statuses);
         form.setContact(marcUsher);
@@ -80,5 +80,5 @@ public class ContactFormTest {
         Assert.assertEquals("john@doe.com", savedContact.getEmail());
         Assert.assertEquals(company1, savedContact.getCompany());
         Assert.assertEquals(status2, savedContact.getStatus());
-    }
+    }*/
 }
