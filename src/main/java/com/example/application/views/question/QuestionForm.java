@@ -24,6 +24,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class QuestionForm extends FormLayout {
     private Question question;
@@ -39,9 +40,10 @@ public class QuestionForm extends FormLayout {
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
 
-    public QuestionForm() {
+    public QuestionForm(List<Tag> tags) {
         addClassName("question-form");
 
+        this.tags.setItems(tags);
         binder.bindInstanceFields(this);
         content.setReadOnly(true);
 
