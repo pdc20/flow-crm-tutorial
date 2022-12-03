@@ -39,7 +39,7 @@ public class QuestionView extends VerticalLayout {
         setSizeFull();
         configureGrid();
 
-        form = new QuestionForm();
+        form = new QuestionForm(service.findAllTags(null));
         form.setWidth("25em");
         form.addListener(QuestionForm.SaveEvent.class, this::saveQuestion);
         form.addListener(QuestionForm.DeleteEvent.class, this::deleteQuestion);

@@ -44,6 +44,8 @@ public class QuestionForm extends FormLayout {
         addClassName("question-form");
 
         this.tags.setItems(tags);
+        this.tags.setItemLabelGenerator(Tag::getName);
+
         binder.bindInstanceFields(this);
         content.setReadOnly(true);
 
