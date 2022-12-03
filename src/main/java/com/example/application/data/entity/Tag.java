@@ -1,9 +1,11 @@
 package com.example.application.data.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,12 +13,32 @@ public class Tag extends AbstractEntity {
     @NotNull
     @NotEmpty
     @NotBlank
-    public String name;
+    private String name;
 
     @NotNull
     @NotEmpty
     @NotBlank
-    public String description;
+    private String description;
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", questions=" + questions +
+                '}';
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    @ManyToMany(mappedBy = "tags")
+    private List<Question> questions;
 
     public String getName() {
         return name;
@@ -34,11 +56,4 @@ public class Tag extends AbstractEntity {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Tag{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

@@ -9,23 +9,18 @@ import java.util.List;
 @Service
 public class CrmService {
 
-    private final ContactRepository contactRepository;
-    private final CompanyRepository companyRepository;
-    private final StatusRepository statusRepository;
     private final SourceRepository sourceRepository;
     private final TagRepository tagRepository;
+    private final QuestionRepository questionRepository;
 
-    public CrmService(ContactRepository contactRepository,
-                      CompanyRepository companyRepository,
-                      StatusRepository statusRepository,
-                      SourceRepository sourceRepository,
-                      TagRepository tagRepository) {
-        this.contactRepository = contactRepository;
-        this.companyRepository = companyRepository;
-        this.statusRepository = statusRepository;
+    public CrmService(SourceRepository sourceRepository,
+                      TagRepository tagRepository,
+                      QuestionRepository questionRepository) {
         this.sourceRepository = sourceRepository;
         this.tagRepository = tagRepository;
+        this.questionRepository = questionRepository;
     }
+
     public List<Tag> findAllTags(String stringFilter) {
         if (stringFilter == null || stringFilter.isEmpty())
             return tagRepository.findAll();
@@ -39,6 +34,13 @@ public class CrmService {
             return;
         }
         tagRepository.save(tag);
+    }
+
+    public List<Question> findAllQuestions(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty())
+            return questionRepository.findAll();
+        else
+            return questionRepository.searchByTag(stringFilter);
     }
 
     public List<ArticleSource> findAllSources(String stringFilter) {
@@ -56,43 +58,23 @@ public class CrmService {
         sourceRepository.save(articleSource);
     }
 
-    public List<Contact> findAllContacts(String stringFilter) {
-        if (stringFilter == null || stringFilter.isEmpty()) {
-            return contactRepository.findAll();
-        } else {
-            return contactRepository.search(stringFilter);
-        }
-    }
-
-    public long countContacts() {
-        return contactRepository.count();
-    }
-
-    public void deleteContact(Contact contact) {
-        contactRepository.delete(contact);
-    }
-
-    public void saveContact(Contact contact) {
-        if (contact == null) {
-            System.err.println("Contact is null. Are you sure you have connected your form to the application?");
-            return;
-        }
-        contactRepository.save(contact);
-    }
-
-    public List<Company> findAllCompanies() {
-        return companyRepository.findAll();
-    }
-
-    public List<Status> findAllStatuses(){
-        return statusRepository.findAll();
-    }
-
     public void deleteArticleSource(ArticleSource articleSource) {
         sourceRepository.delete(articleSource);
     }
 
     public void deleteTag(Tag tag) {
         tagRepository.delete(tag);
+    }
+
+    public void saveQuestion(Question question) {
+        if (question == null) {
+            System.err.println("Contact is null. Are you sure you have connected your form to the application?");
+            return;
+        }
+        questionRepository.save(question);
+    }
+
+    public void deleteQuestion(Question question) {
+        questionRepository.delete(question);
     }
 }

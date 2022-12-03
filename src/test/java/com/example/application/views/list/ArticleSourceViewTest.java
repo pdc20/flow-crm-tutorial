@@ -1,6 +1,5 @@
 package com.example.application.views.list;
 
-import com.example.application.data.entity.Contact;
 import com.example.application.views.articleSource.ArticleSourceView;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.data.provider.ListDataProvider;

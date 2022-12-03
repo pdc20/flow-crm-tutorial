@@ -1,15 +1,9 @@
 package com.example.application.views.list;
 
-import com.example.application.data.entity.Company;
-import com.example.application.data.entity.Contact;
-import com.example.application.data.entity.Status;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ContactFormTest {
     private List<Company> companies;

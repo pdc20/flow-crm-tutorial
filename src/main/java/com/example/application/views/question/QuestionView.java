@@ -1,11 +1,12 @@
-package com.example.application.views.tag;
+package com.example.application.views.question;
 
-import com.example.application.data.entity.Tag;
+import com.example.application.data.entity.Question;
 import com.example.application.data.entity.Tag;
 import com.example.application.data.service.CrmService;
 import com.example.application.views.MainLayout;
 import com.example.application.views.tag.TagForm;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.MultiSelectComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -21,27 +22,28 @@ import javax.annotation.security.PermitAll;
 
 @Component
 @Scope("prototype")
-@Route(value="tag", layout = MainLayout.class)
-@PageTitle("Tags | Vaadin CRM")
+@Route(value="question", layout = MainLayout.class)
+@PageTitle("Question | Vaadin CRM")
 @PermitAll
-public class TagView extends VerticalLayout {
-    Grid<Tag> grid = new Grid<>(Tag.class);
+public class QuestionView extends VerticalLayout {
+    Grid<Question> grid = new Grid<>(Question.class);
     TextField filterText = new TextField();
-    TagForm form;
+
+    QuestionForm form;
     CrmService service;
 
-    public TagView(CrmService service) {
+    public QuestionView(CrmService service) {
 
         this.service = service;
         addClassName("list-view");
         setSizeFull();
         configureGrid();
 
-        form = new TagForm();
+        form = new QuestionForm();
         form.setWidth("25em");
-        form.addListener(TagForm.SaveEvent.class, this::saveTag);
-        form.addListener(TagForm.DeleteEvent.class, this::deleteTag);
-        form.addListener(TagForm.CloseEvent.class, e -> closeEditor());
+        form.addListener(QuestionForm.SaveEvent.class, this::saveQuestion);
+        form.addListener(QuestionForm.DeleteEvent.class, this::deleteQuestion);
+        form.addListener(QuestionForm.CloseEvent.class, e -> closeEditor());
 
         FlexLayout content = new FlexLayout(grid, form);
         content.setFlexGrow(2, grid);
@@ -54,66 +56,64 @@ public class TagView extends VerticalLayout {
         updateList();
         closeEditor();
         grid.asSingleSelect().addValueChangeListener(event ->
-                editTag(event.getValue()));
+                editQuestion(event.getValue()));
     }
 
     private void configureGrid() {
         grid.addClassNames("data-grid");
         grid.setSizeFull();
-        grid.setColumns("id", "name", "description");
+        grid.setColumns("id", "content");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
     private HorizontalLayout getToolbar() {
-        filterText.setPlaceholder("Filter by name...");
+        filterText.setPlaceholder("Filter by tag...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
 
         Button addContactButton = new Button("Add record");
-        addContactButton.addClickListener(click -> addTag());
+        addContactButton.addClickListener(click -> addQuestion());
 
         HorizontalLayout toolbar = new HorizontalLayout(filterText, addContactButton);
         toolbar.addClassName("toolbar");
         return toolbar;
     }
 
-    private void saveTag(TagForm.SaveEvent event) {
-        service.saveTag(event.getTag());
+    private void saveQuestion(QuestionForm.SaveEvent event) {
+        service.saveQuestion(event.getQuestion());
         updateList();
         closeEditor();
     }
 
-    private void deleteTag(TagForm.DeleteEvent event) {
-        service.deleteTag(event.getTag());
+    private void deleteQuestion(QuestionForm.DeleteEvent event) {
+        service.deleteQuestion(event.getQuestion());
         updateList();
         closeEditor();
     }
 
-    public void editTag(Tag tag) {
-        if (tag == null) {
+    public void editQuestion(Question question) {
+        if (question == null) {
             closeEditor();
         } else {
-            form.setTag(tag);
+            form.setQuestion(question);
             form.setVisible(true);
             addClassName("editing");
         }
     }
 
-    void addTag() {
+    void addQuestion() {
         grid.asSingleSelect().clear();
-        editTag(new Tag());
+        editQuestion(new Question());
     }
 
     private void closeEditor() {
-        form.setTag(null);
+        form.setQuestion(null);
         form.setVisible(false);
         removeClassName("editing");
     }
 
     private void updateList() {
-        grid.setItems(service.findAllTags(filterText.getValue()));
+        grid.setItems(service.findAllQuestions(filterText.getValue()));
     }
-
-
 }

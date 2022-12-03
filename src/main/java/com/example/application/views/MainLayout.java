@@ -3,6 +3,7 @@ package com.example.application.views;
 import com.example.application.data.entity.Tag;
 import com.example.application.security.SecurityService;
 import com.example.application.views.articleSource.ArticleSourceView;
+import com.example.application.views.question.QuestionView;
 import com.example.application.views.tag.TagView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -47,9 +48,13 @@ public class MainLayout extends AppLayout {
 
         RouterLink tagLink = new RouterLink("Tags", TagView.class);
 
+        RouterLink questionLink = new RouterLink("Questions", QuestionView.class);
+
         addToDrawer(new VerticalLayout(
             listLink,
-            new RouterLink("Dashboard", DashboardView.class)
+            tagLink,
+            questionLink
+            //new RouterLink("Dashboard", DashboardView.class)
         ));
     }
 }

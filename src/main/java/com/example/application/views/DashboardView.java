@@ -23,10 +23,10 @@ public class DashboardView extends VerticalLayout {
         this.service = service;
         addClassName("dashboard-view");
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
-        add(getContactStats(), getCompaniesChart());
+        //add(getContactStats(), getCompaniesChart());
     }
 
-    private Component getContactStats() {
+    /*private Component getContactStats() {
         Span stats = new Span(service.countContacts() + " contacts");
         stats.addClassNames("text-xl", "mt-m");
         return stats;
@@ -40,5 +40,5 @@ public class DashboardView extends VerticalLayout {
             dataSeries.add(new DataSeriesItem(company.getName(), company.getEmployeeCount())));
         chart.getConfiguration().setSeries(dataSeries);
         return chart;
-    }
+    }*/
 }
