@@ -1,14 +1,6 @@
-# Spring Boot and Vaadin course articleSource code
+# Spring Boot and Vaadin Experimentation Code
+Purpose is to be a kind of question manager where questions can come from various sources which we call "ArticleSources" here. We can associate each question with multiple tags to make them easier to identify.
 
-This repository contains the articleSource code for the [Building Modern Web Applications With Spring Boot and Vaadin](https://vaadin.com/docs/latest/flow/tutorials/in-depth-course).
+Questions can be uploaded by dragging and dropping files in the Question view.
 
-*Live demo:* https://crm.demo.vaadin.com
-
-## Branches
-
-- The main branch contains the articleSource code for the latest Vaadin release
-- The `v14` branch contains the articleSource code for Vaadin 14
-
-
-## Text tutorial
-You can find a text version of the tutorial in the [Vaadin Documentation](https://vaadin.com/docs/latest/flow/tutorials/in-depth-course).
+Tags and Sources can be added in their own views.
