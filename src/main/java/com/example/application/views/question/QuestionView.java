@@ -39,7 +39,7 @@ public class QuestionView extends VerticalLayout {
         setSizeFull();
         configureGrid();
 
-        form = new QuestionForm(service.findAllTags(null));
+        form = new QuestionForm(service.findAllTags(null), service.findAllSources(null));
         form.setWidth("25em");
         form.addListener(QuestionForm.SaveEvent.class, this::saveQuestion);
         form.addListener(QuestionForm.DeleteEvent.class, this::deleteQuestion);
@@ -62,7 +62,7 @@ public class QuestionView extends VerticalLayout {
     private void configureGrid() {
         grid.addClassNames("data-grid");
         grid.setSizeFull();
-        grid.setColumns("id", "content");
+        //grid.setColumns("id", "content");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 

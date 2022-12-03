@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactFormTest {
-    private List<Company> companies;
+    /*private List<Company> companies;
     private List<Status> statuses;
     private Contact marcUsher;
     private Company company1;
@@ -38,7 +38,7 @@ public class ContactFormTest {
         marcUsher.setEmail("marc@usher.com");
         marcUsher.setStatus(status1);
         marcUsher.setCompany(company2);
-    }
+    }*/
 
     /*@Test
     public void formFieldsPopulated() {

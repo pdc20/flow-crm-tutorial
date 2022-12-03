@@ -9,9 +9,6 @@ import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
-    @Query("select c from question c\n" +
-            "inner join question_tag on question.id = question_tag.question_id\n" +
-            "inner join tag on question_tag.tag_id = tag.id\n" +
-            "where lower(tag.\"name\") like lower(concat('%', :searchTerm, '%'))")
+    @Query("select question from Question question join question.tags tag")
     List<Question> searchByTag(@Param("searchTerm") String stringFilter);
 }

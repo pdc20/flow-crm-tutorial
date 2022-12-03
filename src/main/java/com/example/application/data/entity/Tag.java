@@ -20,6 +20,9 @@ public class Tag extends AbstractEntity {
     @NotBlank
     private String description;
 
+    @ManyToMany(mappedBy = "tags")
+    private List<Question> questions;
+
     @Override
     public String toString() {
         return "Tag{" +
@@ -36,9 +39,6 @@ public class Tag extends AbstractEntity {
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
-
-    @ManyToMany(mappedBy = "tags")
-    private List<Question> questions;
 
     public String getName() {
         return name;

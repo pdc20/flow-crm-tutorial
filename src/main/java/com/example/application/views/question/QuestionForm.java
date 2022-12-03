@@ -1,5 +1,6 @@
 package com.example.application.views.question;
 
+import com.example.application.data.entity.ArticleSource;
 import com.example.application.data.entity.Question;
 import com.example.application.data.entity.Tag;
 import com.example.application.views.tag.TagForm;
@@ -8,6 +9,7 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.combobox.MultiSelectComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -34,17 +36,21 @@ public class QuestionForm extends FormLayout {
     TextArea content = new TextArea("Content");
     MultiSelectComboBox<Tag> tags = new MultiSelectComboBox<>("Tags");
 
+    ComboBox<ArticleSource> articleSource = new ComboBox<>("Source");
+
     Binder<Question> binder = new BeanValidationBinder<>(Question.class);
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
 
-    public QuestionForm(List<Tag> tags) {
+    public QuestionForm(List<Tag> tags, List<ArticleSource> sources) {
         addClassName("question-form");
 
         this.tags.setItems(tags);
         this.tags.setItemLabelGenerator(Tag::getName);
+
+        this.articleSource.setItems(sources);
 
         binder.bindInstanceFields(this);
         content.setReadOnly(true);
@@ -61,6 +67,7 @@ public class QuestionForm extends FormLayout {
 
         add(upload_content,
                 content,
+                this.tags,
                 createButtonsLayout());
     }
 
