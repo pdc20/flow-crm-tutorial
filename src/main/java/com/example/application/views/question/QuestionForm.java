@@ -31,8 +31,8 @@ import java.util.List;
 public class QuestionForm extends FormLayout {
     private Question question;
 
-    MemoryBuffer buffer = new MemoryBuffer();
-    Upload upload_content = new Upload(buffer);
+    //MemoryBuffer buffer = new MemoryBuffer();
+    //Upload upload_content = new Upload(buffer);
     TextArea content = new TextArea("Content");
     MultiSelectComboBox<Tag> tags = new MultiSelectComboBox<>("Tags");
 
@@ -55,7 +55,7 @@ public class QuestionForm extends FormLayout {
         binder.bindInstanceFields(this);
         content.setReadOnly(true);
 
-        upload_content.addSucceededListener(event -> {
+        /*upload_content.addSucceededListener(event -> {
             InputStream inputStream = buffer.getInputStream();
 
             try {
@@ -63,9 +63,9 @@ public class QuestionForm extends FormLayout {
             } catch (IOException e) {
                 content.setValue("");
             }
-        });
+        });*/
 
-        add(upload_content,
+        add(//upload_content,
                 content,
                 this.tags,
                 createButtonsLayout());
